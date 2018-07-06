@@ -8,6 +8,7 @@ import * as firebase from 'firebase/app';
 
 import { Platform } from 'ionic-angular';
 import { Facebook } from '@ionic-native/facebook';
+import { InicioPage } from '../inicio/inicio';
 
 @Component({
   selector: 'page-home',
@@ -25,10 +26,11 @@ export class HomePage {
     private platform: Platform) {
       afAuth.authState.subscribe((user: firebase.User) => {
         if (!user) {
-          this.displayName = null;
+          this.displayName = "no se puede entrar";
           return;
         }
-        this.displayName = user.displayName;      
+        //this.displayName = user.displayName;
+        this.goToInicio();
       });
     // this.items = afDB.list('data-prueba2').valueChanges();
     // afAuth.authState.subscribe(user => {
@@ -38,6 +40,11 @@ export class HomePage {
     //   }
     //   this.displayName = user.displayName;      
     // });
+  }
+
+  goToInicio(){
+    //if (!params) params = {};
+    this.navCtrl.setRoot(InicioPage);
   }
 
   signInWithFacebook() {

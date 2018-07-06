@@ -13,11 +13,8 @@ import { ReportarRoboPage } from '../pages/reportar-robo/reportar-robo';
 import { RealizarReportePage } from '../pages/realizar-reporte/realizar-reporte';
 import { BotonDePanicoPage } from '../pages/boton-de-panico/boton-de-panico';
 
-
-import { InicioPage } from '../pages/inicio/inicio';
 import { HomePage } from '../pages/home/home';
-
-
+import { Logout } from '../pages/logout/logout';
 
 @Component({
   templateUrl: 'app.html'
@@ -61,5 +58,8 @@ export class MyApp {
   }goToBotonDePanico(params){
     if (!params) params = {};
     this.navCtrl.setRoot(BotonDePanicoPage);
+  }logoutApp(){ ///<-- call from static button
+    //this.Logout.presentConfirm(); ///<-- call 
+    //this.Logout
   }
 }
