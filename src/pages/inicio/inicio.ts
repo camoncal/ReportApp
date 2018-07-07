@@ -1,11 +1,12 @@
 import { Component, ViewChild, ElementRef } from '@angular/core';
 import { IonicPage } from 'ionic-angular';
-import { NavController } from 'ionic-angular';
+import { NavController, ToastController } from 'ionic-angular';
 import { Geolocation } from '@ionic-native/geolocation';
+import { AngularFireAuth } from 'angularfire2/auth';
 
 declare var google;
 
-@IonicPage()
+//@IonicPage()
 @Component({
   selector: 'page-inicio',
   templateUrl: 'inicio.html'
@@ -19,10 +20,17 @@ export class InicioPage {
   directionsService = new google.maps.DirectionsService;
   directionsDisplay = new google.maps.DirectionsRenderer;
 
-  constructor(public navCtrl: NavController, public geolocation: Geolocation) {
+  constructor(private afAuth: AngularFireAuth, private toast: ToastController,
+    public navCtrl: NavController, public geolocation: Geolocation) {
   }
   
   ionViewDidLoad(){
+    this.afAuth.authState.subscribe(data => {console.log(data);
+      this.toast.create({
+        message: `Bienvenido, ${data.email}`,
+        duration: 3000
+      }).present();
+    });
     this.initMap();
   }
 

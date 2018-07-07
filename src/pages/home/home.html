@@ -1,20 +1,25 @@
 <ion-header>
-  <ion-navbar>
-    <ion-title>
-      ReportApp
-    </ion-title>
+  <ion-navbar color="primary">
+    <ion-title>ReportApp</ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding>
-  <div>
-    <ion-list>
-        <ion-item class="text" *ngFor="let item of items | async">
-          {{item | json}}
-        </ion-item>
-      </ion-list>
-      <h1>{{displayName}}</h1>
-      <button ion-button outline (click)="signInWithFacebook()">Login</button>  
-  <button ion-button outline (click)="signOut()">Logout</button>
-</div>
+  <ion-item>
+    <ion-label floating>Correo electronico</ion-label>
+    <ion-input type="text" [(ngModel)]="user.email"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label floating>Contraseña</ion-label>
+    <ion-input type="password" [(ngModel)]="user.password"></ion-input>
+  </ion-item>
+
+  <button ion-button (click)="login(user)">Iniciar sesion</button>
+  <button ion-button color="light" (click)="register()">Registrarse</button>
+  <button ion-button (click)="signInWithFacebook()">Iniciar sesion con Facebook</button>  
+  <!-- <div>    
+    <h1>{{displayName}}</h1>
+    <button ion-button outline (click)="signInWithFacebook()">Login</button>  
+    <button ion-button outline (click)="signOut()">Logout</button>
+  </div> -->
 </ion-content>

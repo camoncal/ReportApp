@@ -1,13 +1,13 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 
-import { AngularFireDatabase } from 'angularfire2/database';
 import { Observable } from 'rxjs/Observable';
 import { AngularFireAuth } from 'angularfire2/auth';
 import * as firebase from 'firebase/app';
 
 import { Platform } from 'ionic-angular';
 import { Facebook } from '@ionic-native/facebook';
+import { User } from '../../modulos/user';
 import { InicioPage } from '../inicio/inicio';
 
 @Component({
@@ -15,12 +15,13 @@ import { InicioPage } from '../inicio/inicio';
   templateUrl: 'home.html'
 })
 export class HomePage {
-  items: Observable<any[]>;
 
   displayName;
 
+  user = {} as User;
+
+  
   constructor(public navCtrl: NavController, 
-    afDB: AngularFireDatabase,
     private afAuth: AngularFireAuth, 
     private fb: Facebook, 
     private platform: Platform) {
@@ -30,21 +31,27 @@ export class HomePage {
           return;
         }
         //this.displayName = user.displayName;
-        this.goToInicio();
+      this.navCtrl.setRoot(InicioPage);
       });
-    // this.items = afDB.list('data-prueba2').valueChanges();
-    // afAuth.authState.subscribe(user => {
-    //   if (!user) {
-    //     this.displayName = null;        
-    //     return;
-    //   }
-    //   this.displayName = user.displayName;      
-    // });
   }
 
-  goToInicio(){
-    //if (!params) params = {};
-    this.navCtrl.setRoot(InicioPage);
+  async login(user: User){
+    try{
+      const result = this.afAuth.auth.signInWithEmailAndPassword(user.email, user.password)
+      if (result){
+      this.navCtrl.setRoot(InicioPage);
+      }
+      else{
+        console.log("Datos de autenticacion errados...");
+      }
+    }
+    catch(e){
+      console.error(e);
+    }
+  }
+
+  register(){
+    this.navCtrl.push('RegistroPage');
   }
 
   signInWithFacebook() {

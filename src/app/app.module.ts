@@ -15,13 +15,14 @@ import { AgregarVehiculoPage } from '../pages/agregar-vehiculo/agregar-vehiculo'
 import { ReportesPage } from '../pages/reportes/reportes';
 import { RealizarReportePage } from '../pages/realizar-reporte/realizar-reporte';
 
-import { HomePage } from '../pages/home/home';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireDatabaseModule, AngularFireDatabase } from 'angularfire2/database';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 import { Facebook } from '@ionic-native/facebook';
 import { Geolocation } from '@ionic-native/geolocation';
+
 import { Logout } from '../pages/logout/logout';
+import { HomePage } from '../pages/home/home';
 
 export const firebaseConfig = {
   apiKey: "AIzaSyDy8bVCMlDcZe6x7LjuUjODD4B9fn6yh7I",
