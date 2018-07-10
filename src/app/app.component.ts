@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { Platform, Nav } from 'ionic-angular';
+import { Platform, Nav, Events } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
@@ -13,8 +13,10 @@ import { ReportarRoboPage } from '../pages/reportar-robo/reportar-robo';
 import { RealizarReportePage } from '../pages/realizar-reporte/realizar-reporte';
 import { BotonDePanicoPage } from '../pages/boton-de-panico/boton-de-panico';
 
+
 import { HomePage } from '../pages/home/home';
 import { Logout } from '../pages/logout/logout';
+import { InicioPage } from '../pages/inicio/inicio';
 
 @Component({
   templateUrl: 'app.html'
@@ -23,7 +25,7 @@ export class MyApp {
   @ViewChild(Nav) navCtrl: Nav;
     rootPage:any = HomePage;
 
-  constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen) {
+  constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen, public events: Events) {
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
@@ -31,7 +33,10 @@ export class MyApp {
       splashScreen.hide();
     });
   }
-  goToPerfil(params){
+  goToInicio(params){
+    if (!params) params = {};
+    this.navCtrl.setRoot(InicioPage);
+  }goToPerfil(params){
     if (!params) params = {};
     this.navCtrl.setRoot(PerfilPage);
   }goToMisVehiculos(params){
@@ -61,5 +66,6 @@ export class MyApp {
   }logoutApp(){ ///<-- call from static button
     //this.Logout.presentConfirm(); ///<-- call 
     //this.Logout
+    this.events.publish('user:logout');
   }
 }

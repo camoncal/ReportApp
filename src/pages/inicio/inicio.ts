@@ -1,4 +1,4 @@
-import { Component, ViewChild, ElementRef } from '@angular/core';
+import { Component, ViewChild, ElementRef, SystemJsNgModuleLoader } from '@angular/core';
 import { IonicPage } from 'ionic-angular';
 import { NavController, ToastController } from 'ionic-angular';
 import { Geolocation } from '@ionic-native/geolocation';
@@ -25,12 +25,6 @@ export class InicioPage {
   }
   
   ionViewDidLoad(){
-    this.afAuth.authState.subscribe(data => {console.log(data);
-      this.toast.create({
-        message: `Bienvenido, ${data.email}`,
-        duration: 3000
-      }).present();
-    });
     this.initMap();
   }
 

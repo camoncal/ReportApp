@@ -17,9 +17,11 @@ import { RealizarReportePage } from '../pages/realizar-reporte/realizar-reporte'
 
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireDatabaseModule, AngularFireDatabase } from 'angularfire2/database';
+import { AngularFireStorageModule } from 'angularfire2/storage';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 import { Facebook } from '@ionic-native/facebook';
 import { Geolocation } from '@ionic-native/geolocation';
+import { Camera } from '@ionic-native/camera';
 
 import { Logout } from '../pages/logout/logout';
 import { HomePage } from '../pages/home/home';
@@ -53,7 +55,8 @@ export const firebaseConfig = {
     IonicModule.forRoot(MyApp),
     AngularFireModule.initializeApp(firebaseConfig),
     AngularFireDatabaseModule,
-    AngularFireAuthModule
+    AngularFireAuthModule,
+    AngularFireStorageModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -75,6 +78,7 @@ export const firebaseConfig = {
     SplashScreen,
     AngularFireDatabase,
     AngularFireAuthModule,
+    Camera,
     Facebook,
     Geolocation,
     Logout,
