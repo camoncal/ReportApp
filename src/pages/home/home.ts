@@ -12,6 +12,7 @@ import { InicioPage } from '../inicio/inicio';
 import { UserListService } from '../../services/user-list.service';
 import { UserObj } from '../../model/user/user.model';
 import { AngularFireModule } from 'angularfire2';
+import { LocalStorageService } from '../../services/local-storage.service';
 
 @Component({
   selector: 'page-home',
@@ -43,6 +44,7 @@ export class HomePage {
     private platform: Platform,
     private toast: ToastController,
     private db: AngularFireModule,
+    private localstorage: LocalStorageService,
     private userListService: UserListService) {
       afAuth.authState.subscribe((user: firebase.User) => {
         //debugger;
@@ -60,9 +62,9 @@ export class HomePage {
             this.userf.correo = data.email;
             this.userf.uid = data.uid;
             this.userf.name = data.displayName;
+            localStorage.setItem("users", this.userf.uid);
             // this.getUser(data.uid);
             this.getUser(data.uid).subscribe(user => {
-              debugger;
               if(!user) 
                 this.setUser(this.userf);
           })//.then(user=> this.userg);
@@ -122,6 +124,13 @@ export class HomePage {
 
   getUser(uid:string) {
     return this.userListService.getUser(uid)//.then(ref => { })}//(user=> this.userg)
+  }
+  
+  setuid(uid)
+  {
+    debugger;
+    this.localstorage.setUsers(uid)
+    
   }
 
   register(){

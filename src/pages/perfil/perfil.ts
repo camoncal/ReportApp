@@ -4,13 +4,15 @@ import { CameraService } from '../../services/camera.service';
 import { UserListService } from '../../services/user-list.service';
 import { Observable } from 'rxjs/Observable';
 import { UserObj } from '../../model/user/user.model';
+import 'rxjs/add/operator/map';
 
 @Component({
   selector: 'page-perfil',
   templateUrl: 'perfil.html'
 })
 export class PerfilPage {
-  items: Observable<UserObj[]>;
+  item: Observable<UserObj[]>;
+  uid: string;
 
   userf: UserObj = {
     name: '',
@@ -26,15 +28,24 @@ export class PerfilPage {
     private cameraService: CameraService,
     public navParams: NavParams) {
 
-      this.items = this.userListService.getUservalues()
+      // this.items = this.userListService.getUservalues()
+      this.uid = localStorage.getItem("users");
+      
+      this.userListService.getUser(this.uid).subscribe((user: UserObj) => {
+        debugger;
+        
+        this.userf = user;
+      });
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad EditCarPage');
-    this.userf = this.navParams.get('user');
+    // this.userf = this.navParams.get('user');
   }
   tomarFoto()
   {
     this.cameraService.tomarFoto()
   }
+
+  
 }

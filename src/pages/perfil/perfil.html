@@ -12,11 +12,14 @@
   <img src="assets/img/381038-200.png" style="display:block;width:80;height:auto;margin-left:auto;margin-right:auto;" />
   <button ion-button (click)="tomarFoto()">Tomar foto</button>
   <form id="perfil-form4">
+    <ion-item class="text">
+        {{userf | json}}
+    </ion-item>
     <ion-item id="perfil-input8">
       <ion-label>
         Nombre
       </ion-label>
-      <ion-input type="text" placeholder="Nombre de usuario" name="nombreUsuario"></ion-input>
+      <ion-input type="text" [(ngModel)] ="userf.uid" placeholder="Nombre de usuario" name="nombreUsuario"></ion-input>
     </ion-item>
     <ion-item id="perfil-input9">
       <ion-label>

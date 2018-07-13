@@ -28,6 +28,7 @@ import { UserListService } from '../services/user-list.service';
 import { Logout } from '../pages/logout/logout';
 import { HomePage } from '../pages/home/home';
 import { CameraService } from '../services/camera.service';
+import { LocalStorageService } from '../services/local-storage.service';
 
 export const firebaseConfig = {
   apiKey: "AIzaSyDy8bVCMlDcZe6x7LjuUjODD4B9fn6yh7I",
@@ -88,6 +89,7 @@ export const firebaseConfig = {
     CarListService,
     UserListService,
     CameraService,
+    LocalStorageService,
     {provide: ErrorHandler, useClass: IonicErrorHandler}  ]
 })
 export class AppModule {}
