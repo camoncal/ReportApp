@@ -22,9 +22,12 @@ import { AngularFireAuthModule } from 'angularfire2/auth';
 import { Facebook } from '@ionic-native/facebook';
 import { Geolocation } from '@ionic-native/geolocation';
 import { Camera } from '@ionic-native/camera';
+import { CarListService } from '../services/car-list.service';
+import { UserListService } from '../services/user-list.service';
 
 import { Logout } from '../pages/logout/logout';
 import { HomePage } from '../pages/home/home';
+import { CameraService } from '../services/camera.service';
 
 export const firebaseConfig = {
   apiKey: "AIzaSyDy8bVCMlDcZe6x7LjuUjODD4B9fn6yh7I",
@@ -82,6 +85,9 @@ export const firebaseConfig = {
     Facebook,
     Geolocation,
     Logout,
+    CarListService,
+    UserListService,
+    CameraService,
     {provide: ErrorHandler, useClass: IonicErrorHandler}  ]
 })
 export class AppModule {}

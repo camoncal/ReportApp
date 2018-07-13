@@ -9,6 +9,9 @@ import { Platform } from 'ionic-angular';
 import { Facebook } from '@ionic-native/facebook';
 import { User } from '../../modulos/user';
 import { InicioPage } from '../inicio/inicio';
+import { UserListService } from '../../services/user-list.service';
+import { UserObj } from '../../model/user/user.model';
+import { AngularFireModule } from 'angularfire2';
 
 @Component({
   selector: 'page-home',
@@ -20,15 +23,29 @@ export class HomePage {
 
   user = {} as User;
 
+  userf: UserObj = {
+    name: '',
+    lastname: '',
+    id: '',
+    address: '',
+    phone: '',
+    correo: '',
+    dob: '',
+    uid: ''
+  };
+
+  private userg : any;
   
   constructor(public navCtrl: NavController,  
     public events: Events,
     private afAuth: AngularFireAuth, 
     private fb: Facebook, 
     private platform: Platform,
-    private toast: ToastController) {
+    private toast: ToastController,
+    private db: AngularFireModule,
+    private userListService: UserListService) {
       afAuth.authState.subscribe((user: firebase.User) => {
-        debugger;
+        //debugger;
         if (!user) {
           //this.navCtrl.setRoot(HomePage);
           this.toast.create({
@@ -40,6 +57,18 @@ export class HomePage {
         else{
           this.afAuth.authState.subscribe(data => {
             console.log(data);
+            this.userf.correo = data.email;
+            this.userf.uid = data.uid;
+            this.userf.name = data.displayName;
+            // this.getUser(data.uid);
+            this.getUser(data.uid).subscribe(user => {
+              debugger;
+              if(!user) 
+                this.setUser(this.userf);
+          })//.then(user=> this.userg);
+            // debugger;
+            //this.userg = this.db.database.object(`tbuser/${data.uid}`);
+            
             this.toast.create({
               message: `Bienvenido, ${data.email}`,
               duration: 3000
@@ -80,6 +109,19 @@ export class HomePage {
     catch(e){
       console.error(e);
     }
+  }
+
+  // addUser(userf: UserObj) {
+  //   this.userListService.addUser(userf).then(ref => {
+  //     // this.navCtrl.setRoot(DatabasePage);
+  //   })}
+
+  setUser(userf: UserObj) {
+    this.userListService.setUser(userf).then(ref => {
+    })}
+
+  getUser(uid:string) {
+    return this.userListService.getUser(uid)//.then(ref => { })}//(user=> this.userg)
   }
 
   register(){

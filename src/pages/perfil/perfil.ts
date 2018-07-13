@@ -1,39 +1,40 @@
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
-import { storage } from 'firebase';
-import { Camera, CameraOptions } from '@ionic-native/camera';
+import { NavController, NavParams } from 'ionic-angular';
+import { CameraService } from '../../services/camera.service';
+import { UserListService } from '../../services/user-list.service';
+import { Observable } from 'rxjs/Observable';
+import { UserObj } from '../../model/user/user.model';
 
 @Component({
   selector: 'page-perfil',
   templateUrl: 'perfil.html'
 })
 export class PerfilPage {
+  items: Observable<UserObj[]>;
 
-  constructor(public navCtrl: NavController,
-    private camera: Camera) {
+  userf: UserObj = {
+    name: '',
+    lastname: '',
+    id: '',
+    address: '',
+    phone: '',
+    correo: '',
+    dob: '',
+    uid: ''
+  };
+  constructor(public navCtrl: NavController,  private userListService: UserListService,
+    private cameraService: CameraService,
+    public navParams: NavParams) {
+
+      this.items = this.userListService.getUservalues()
   }
 
-  async tomarFoto(){
-    try {
-      const options: CameraOptions = {
-        quality: 50,
-        targetHeight: 600,
-        targetWidth: 600,
-        destinationType: this.camera.DestinationType.DATA_URL,
-        encodingType: this.camera.EncodingType.JPEG,
-        mediaType: this.camera.MediaType.PICTURE
-      }
-  
-      const result = await this.camera.getPicture(options);
-
-      const image = `data:image/jpeg;base64,${result}`;
-
-      const pictures = storage().ref('pictures');
-      pictures.putString(image, 'data_url');
-    } catch (e) {
-      console.error(e);
-    }
-    
+  ionViewDidLoad() {
+    console.log('ionViewDidLoad EditCarPage');
+    this.userf = this.navParams.get('user');
   }
-
+  tomarFoto()
+  {
+    this.cameraService.tomarFoto()
+  }
 }
