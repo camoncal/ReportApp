@@ -30,7 +30,7 @@ export class UserListService {
     }
 
     updateUser(user: UserObj) {
-        return this.userListRef.update(user.key, user);
+        return this.userListRef.update(user.uid, user);
     }
 
     removeUser(user: UserObj) {

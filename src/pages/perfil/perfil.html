@@ -13,31 +13,31 @@
   <button ion-button (click)="tomarFoto()">Tomar foto</button>
   <form id="perfil-form4">
     <ion-item class="text">
-        {{userf | json}}
+        <!-- {{user | json}} -->
     </ion-item>
     <ion-item id="perfil-input8">
       <ion-label>
         Nombre
       </ion-label>
-      <ion-input type="text" [(ngModel)] ="userf.uid" placeholder="Nombre de usuario" name="nombreUsuario"></ion-input>
+      <ion-input type="text" [(ngModel)] ="user.name" placeholder="Nombre de usuario" name="nombreUsuario"></ion-input>
     </ion-item>
     <ion-item id="perfil-input9">
       <ion-label>
         Documento
       </ion-label>
-      <ion-input type="text" placeholder="Identificación" name="documentoUser"></ion-input>
+      <ion-input type="text" [(ngModel)] ="user.id" placeholder="Identificación" name="documentoUser"></ion-input>
     </ion-item>
     <ion-item id="perfil-input10">
       <ion-label>
         Telefono
       </ion-label>
-      <ion-input type="number" placeholder="Numero telefonico" name="telefonoUsuario"></ion-input>
+      <ion-input type="number" [(ngModel)] ="user.phone" placeholder="Numero telefonico" name="telefonoUsuario"></ion-input>
     </ion-item>
     <ion-item id="perfil-input11">
       <ion-label>
         Email
       </ion-label>
-      <ion-input type="text" placeholder="Email" name="emailUsuario"></ion-input>
+      <ion-input type="text" [(ngModel)] ="user.correo" placeholder="Email" name="emailUsuario"></ion-input>
     </ion-item>
     <div id="perfil-container8">
       <div id="perfil-markdown14" class="show-list-numbers-and-dots">
@@ -49,6 +49,7 @@
         </p>
       </div>
     </div>
+    <button ion-button block clear (click)="updateUser(user)">Update User</button>
     <button id="perfil-button6" ion-button color="positive" block on-click="goToMisVehiculos()">
       Mis vehiculos
     </button>
